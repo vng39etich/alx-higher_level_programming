@@ -6,6 +6,8 @@ an empty rectangle
 
 class Rectangle:
     """this class defines a rectangle"""
+    number_of_instances = 0
+
     def __init__(self, width=0, height=0):
         if type(width) is not int:
             raise TypeError("width must be an integer")
@@ -17,6 +19,7 @@ class Rectangle:
             raise ValueError("height must be >= 0")
         self.__width = width
         self.__height = height
+        Rectangle.number_of_instances = Rectangle.number_of_instances + 1
 
     @property
     def width(self):
@@ -26,7 +29,11 @@ class Rectangle:
     @width.setter
     def width(self, value):
         """this instance method sets the value of the width"""
-        self.__init__(value, self.__height)
+        if type(width) is not int:
+            raise TypeError("width must be an integer")
+        if width < 0:
+            raise ValueError("width must be >= 0")
+        self.__width = value
 
     @property
     def height(self):
@@ -36,7 +43,11 @@ class Rectangle:
     @height.setter
     def height(self, value):
         """this method sets he height field"""
-        self.__init__(self.__width, value)
+        if type(height) is not int:
+            raise TypeError("height must be an integer")
+        if height < 0:
+            raise ValueError("height must be >= 0")
+        self.__height = value
 
     def area(self):
         """this method returns the area of the rectangle"""
@@ -68,7 +79,7 @@ class Rectangle:
 
     def __del__(self):
         """deletes an istance of this class"""
+        if Rectangle.number_of_instances != 0:
+            Rectangle.number_of_instances = Rectangle.number_of_instances - 1
         print("Bye rectangle...")
         del self
-
-
